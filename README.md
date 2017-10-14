@@ -27,11 +27,22 @@ Use Zookeeper Client command to check it:
 ## Zookeeper client library  
 Recommend using [curator](http://curator.apache.org/) as zookeeper client library.
 Here is some examples:
-* Client creation
+* Client creation 
 https://github.com/apache/curator/blob/master/curator-examples/src/main/java/framework/CreateClientExamples.java
 
-* znode crud and watch
+* znode crud and watch  
 https://github.com/apache/curator/blob/master/curator-examples/src/main/java/framework/CrudExamples.java
 
-* zookeeper trasaction
-https://github.com/apache/curator/blob/master/curator-examples/src/main/java/framework/TransactionExamples.java  
+* zookeeper trasaction  
+https://github.com/apache/curator/blob/master/curator-examples/src/main/java/framework/TransactionExamples.java
+
+
+## Issues
+* Curator API failed
+```
+org.apache.zookeeper.KeeperException$UnimplementedException: KeeperErrorCode = Unimplemented for /c1
+```  
+It is because curator's version is higher than zk server's.
+To solve it, you need to reduce your curator's version.
+Detail solution:
+[http://curator.apache.org/zk-compatibility.html]()
