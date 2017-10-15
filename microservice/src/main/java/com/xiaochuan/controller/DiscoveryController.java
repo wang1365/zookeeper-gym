@@ -1,10 +1,10 @@
 package com.xiaochuan.controller;
 
-import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.x.discovery.ServiceDiscovery;
-import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
+import org.apache.curator.x.discovery.ServiceInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
@@ -14,15 +14,11 @@ public class DiscoveryController {
 
 
     @Autowired
-    CuratorFramework client;
+    ServiceDiscovery<String> discovery;
 
     @RequestMapping("/services")
-    Collection<String> getServices() throws Exception {
-        ServiceDiscovery<String> discovery = ServiceDiscoveryBuilder.builder(String.class)
-                .client(client)
-                .basePath("/")
-                .build();
-        discovery.start();
-        return discovery.queryForNames();
+    Collection<ServiceInstance<String>> getServices(@RequestParam("service")String service) throws Exception {
+        Collection<ServiceInstance<String>> instances = discovery.queryForInstances(service);
+        return instances;
     }
 }
