@@ -21,7 +21,7 @@ public class ZkClientConfiguration {
     private String server;
 
     // TODO: when this bean is destroyed, bean's "close" is not invoked
-    @Bean
+    @Bean(destroyMethod = "close")
     CuratorFramework createZkClient() {
         logger.info("##### Start create zk client");
         RetryPolicy policy = new RetryNTimes(3, 1000);
