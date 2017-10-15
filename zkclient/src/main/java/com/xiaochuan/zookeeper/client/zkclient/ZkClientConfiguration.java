@@ -24,6 +24,8 @@ public class ZkClientConfiguration {
     @Bean(destroyMethod = "close")
     CuratorFramework createZkClient() {
         logger.info("##### Start create zk client");
+
+        // 使用curator创建zk客户端，需要指定一个重试策略
         RetryPolicy policy = new RetryNTimes(3, 1000);
         CuratorFramework client = CuratorFrameworkFactory.builder()
                 .connectString(server)

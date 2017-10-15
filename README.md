@@ -1,11 +1,11 @@
 # zookeeper-learning
 
-## Zookeeper server installation on windows
-* Download zookeeper  
+## Zookeeper server 安装（windows）
+* 下载  
 [http://zookeeper.apache.org/releases.html#download]()
 
-* Set configuration
-Create or open `zookeeper/config/zoo.cfg`, and set below config:
+* 配置  
+修改或新建 `zookeeper/config/zoo.cfg`, 配置如下:
 ```
 tickTime=2000
 initLimit=10
@@ -17,10 +17,10 @@ dataLogDir=E:\\software\\zookeeper\\zookeeper-3.4.9\\log
 clientPort=2181
 ```
 
-* Start server  
+* 启动  
 `bin\zkServer.cmd`
 
-* Verification   
+* 验证   
 Use Zookeeper Client command to check it:  
 `bin\zkCli.cmd`
 
@@ -46,3 +46,20 @@ It is because curator's version is higher than zk server's.
 To solve it, you need to reduce your curator's version.
 Detail solution:
 [http://curator.apache.org/zk-compatibility.html]()
+
+
+## 测试zookeeper服务注册与发现
+### 打包microservice模块
+* 启动多个实例
+```
+java -jar microservice.jar --server.port=8082 --appname=wxc  
+java -jar microservice.jar --server.port=8083 --appname=wxc  
+java -jar microservice.jar --server.port=8084 --appname=wxc1  
+```
+
+* 查看zookeeper节点情况
+```
+/wxc/service0000000000
+/wxc/service0000000001
+/wxc1/service000000000
+```
